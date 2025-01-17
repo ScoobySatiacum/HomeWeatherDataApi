@@ -31,39 +31,34 @@ def add():
 
 	json_data = request.json
 
+	json_data = json.loads(json_data)
+
 	data = prepare_data_for_db(json_data)
-
-	# for item in json_data:
-	# 	schema = WeatherDataSchema()
-	# 	result = schema.load(item)
-
-	# 	data.append(result)
-
-	print(data)
 
 	if sql._connection_status:
 		sql.insert_data(data)
+		return jsonify("Result: Success")
 	else:
 		# handle error.
 		return jsonify("Result: Absolute Failure")
 	
 def prepare_data_for_db(json_data):
 	ordered_field_list = [
-		"timestamp",
-		"outdoortemperature",
-		"outdoorhumidity",
-		"dewpoint",
-		"heatindex",
-		"windchill",
-		"barometricpressure",
-		"rain",
-		"windspeed",
-		"windaverage",
-		"peakwind",
-		"winddirection",
-		"indoortemperature",
-		"indoorhumidity",
-		"timestampdateonly"
+		"Timestamp",
+		"Outdoor Temperature",
+		"Outdoor Humidity",
+		"Dew Point",
+		"Heat Index",
+		"Wind Chill",
+		"Barometric Pressure",
+		"Rain",
+		"Wind Speed",
+		"Wind Average",
+		"Peak Wind",
+		"Wind Direction",
+		"Indoor Temperature",
+		"Indoor Humidity",
+		"TimestampDateOnly"
 		]
 	
 	output = []
