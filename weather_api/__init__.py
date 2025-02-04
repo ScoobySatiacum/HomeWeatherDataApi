@@ -1,11 +1,15 @@
 import os
-
 import logging
-from pprint import pprint
 
-from flask import Flask, jsonify, request, g
+from flask import Flask
+
+logger = logging.getLogger(__name__)
 
 def create_app(test_config=None):
+    logging.basicConfig(filename="", level=logging.INFO, format='%(asctime)s %(message)s')
+
+    logger.info("Home Weather Data API starting.")
+
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
@@ -26,9 +30,13 @@ def create_app(test_config=None):
     except OSError:
         pass
 
+    logger.info("Registering API blueprint")
+
     with app.app_context():
         from . import api
         app.register_blueprint(api.bp)
         app.add_url_rule('/', endpoint='index')
+
+    logger.info("API started.")
 
     return app

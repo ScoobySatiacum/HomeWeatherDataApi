@@ -2,12 +2,15 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for, jsonify, current_app
 )
 from werkzeug.exceptions import abort
-from pprint import pprint
 
 import json
+import logging
 
 from data_models.weather_data_schema import WeatherDataSchema
 from weather_data_repository import Repository
+
+logger = logging.getLogger(__name__)
+logging.basicConfig(filename="", level=logging.INFO, format='%(asctime)s %(message)s')
 
 bp = Blueprint('api', __name__)
 
